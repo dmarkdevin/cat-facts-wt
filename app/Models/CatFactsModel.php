@@ -11,7 +11,7 @@ class CatFactsModel extends Model
     public function __construct() {
         // Establishes a database connection and initializes mandatory fields
         $this->db = \Config\Database::connect();
-        $this->mandatoryFields = ['_id','updatedAt','createdAt','type', 'text'];
+        $this->mandatoryFields = ['_id','updatedAt','createdAt', 'text'];
         // ,'status','text','updatedAt','deleted','sentCount'
     }
     /**
@@ -129,7 +129,12 @@ class CatFactsModel extends Model
                 }
 
                 // Add '__v' field to the data
-                $data['__v'] = esc($apiEntry['__v']);
+                $data['__v'] = $apiEntry['__v'] ? esc($apiEntry['__v']) : '';
+                $data['source'] = $apiEntry['source'] ? esc($apiEntry['source']) : '';
+                $data['used'] = $apiEntry['used'] ? esc($apiEntry['used']) : '';
+                $data['status'] = $apiEntry['status'] ? esc($apiEntry['status']) : '';
+                $data['user'] = $apiEntry['user'] ? esc($apiEntry['user']) : '';
+                $data['type'] = $apiEntry['type'] ? esc($apiEntry['type']) : '';
 
                 // Validate the mandatory fields
                 if ($this->validateMandatoryFields($data, $this->mandatoryFields)) {

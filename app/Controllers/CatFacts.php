@@ -214,7 +214,7 @@ class CatFacts extends BaseController
 
                     $value = ($key == 'deleted' && is_bool($value)) ? ($value ? 'true' : 'false') : $value;
 
-                    $html .= '<td>' . esc($value) . '</td>';   
+                    $html .= '<td>' . $this->UtilService->truncateTextByCharacters(esc($value)) . '</td>';   
 
                 }
             }

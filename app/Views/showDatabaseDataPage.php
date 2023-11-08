@@ -24,10 +24,11 @@
                                     <?php if ($count>0) { ?>
                                         <p>The following data is from the Database - Table <b>facts</b>.</p>
                                     <?php } ?>
-
+                                    <div class="table-responsive">
                                     <table class="table">
                                         <tbody id="fact-table-body"></tbody>
                                     </table>
+                                    </div>
                                     <?php if ($count>0) { ?>
                                     <div class="text-center mt-5">
 
