@@ -28,16 +28,8 @@
                             <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
                                 <div class="card-body p-5">
                                     <?php if (!empty($facts)) { ?>
-                                        <p>The following data is from the Cat Facts API.</p>
-                                    <?php } ?>
-                                    <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody id="fact-table-body"></tbody>
-                                    </table>
-                                    </div>
-                                    <?php if (!empty($facts)) { ?>
                                     <div class="text-center mt-5">
-                                        <p>By clicking the confirm button, you confirm the synchronization of data from the Cat Facts API to the database.</p>
+                                        <p>By clicking the confirm button, you confirm the synchronization of 5 random cat facts from the Cat Facts API to the database.</p>
 
                                         <form action="/confirmed" method="post">
                                             <input type="hidden" name="token" value="<?=$token;?>">
@@ -56,19 +48,3 @@
                     </div>
                 </div>
             </section>
-            <script>
-                function updateFactTable() {
-                    $.ajax({
-                        url: '/fetchCatFactsAPI',
-                        type: 'GET',
-                        success: function(response) {
-                        $('#fact-table-body').html(response);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching data:', error);
-                        }
-                    });
-                }
-                updateFactTable();
-                // setInterval(updateFactTable, 5000);
-            </script>

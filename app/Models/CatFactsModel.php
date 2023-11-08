@@ -5,14 +5,14 @@ use CodeIgniter\Model;
 class CatFactsModel extends Model
 {
     protected $facts = "facts";
-    protected $mandatoryFields;
+    protected $mandatoryFields,$otherFields;
     protected $db;
 
     public function __construct() {
         // Establishes a database connection and initializes mandatory fields
         $this->db = \Config\Database::connect();
         $this->mandatoryFields = ['_id','updatedAt','createdAt', 'text'];
-        // ,'status','text','updatedAt','deleted','sentCount'
+        $this->otherFields = ['__v', 'source', 'used', 'status', 'user', 'type'];
     }
     /**
      * Fetches all data from the 'facts' table
@@ -122,19 +122,18 @@ class CatFactsModel extends Model
                 // Convert boolean 'deleted' value to strings 'true' or 'false'
                 $apiEntry['deleted'] = ($apiEntry['deleted'] === false) ? 'false' : 'true';
 
-                // Extract mandatory fields from the API entry
                 $data = [];
-                foreach ($this->mandatoryFields as $field) {
-                    $data[$field] = esc($apiEntry[$field]) ?? null;
-                }
+                $mergeArray = array_merge($this->mandatoryFields, $this->otherFields);
 
-                // Add '__v' field to the data
-                $data['__v'] = $apiEntry['__v'] ? esc($apiEntry['__v']) : '';
-                $data['source'] = $apiEntry['source'] ? esc($apiEntry['source']) : '';
-                $data['used'] = $apiEntry['used'] ? esc($apiEntry['used']) : '';
-                $data['status'] = $apiEntry['status'] ? esc($apiEntry['status']) : '';
-                $data['user'] = $apiEntry['user'] ? esc($apiEntry['user']) : '';
-                $data['type'] = $apiEntry['type'] ? esc($apiEntry['type']) : '';
+                foreach ($mergeArray as $field) {
+                    // Check if the field exists in the $apiEntry array
+                    // If it exists and is a non-empty string, escape it
+                    if (isset($apiEntry[$field]) && is_string($apiEntry[$field])) {
+                        $data[$field] = esc($apiEntry[$field]);
+                    } else {
+                        $data[$field] = ''; // Set to an empty string if not present or not a string
+                    }
+                }
 
                 // Validate the mandatory fields
                 if ($this->validateMandatoryFields($data, $this->mandatoryFields)) {
