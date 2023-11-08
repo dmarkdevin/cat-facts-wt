@@ -21,7 +21,7 @@ class CatFactsModel extends Model
     public function fetchAll() {
         try {
             $builder = $this->db->table($this->facts)
-                ->select($this->mandatoryFields);
+                ->select('*');
             $query = $builder->get();
             return $query->getResult();
         } catch (\Exception $e) {
@@ -129,7 +129,7 @@ class CatFactsModel extends Model
                 }
 
                 // Add '__v' field to the data
-                $data['version'] = esc($apiEntry['__v']);
+                $data['__v'] = esc($apiEntry['__v']);
 
                 // Validate the mandatory fields
                 if ($this->validateMandatoryFields($data, $this->mandatoryFields)) {

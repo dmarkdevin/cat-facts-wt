@@ -36,7 +36,6 @@ CatFacts 101 is an application that consumes the Cat Facts API to fetch interest
       `deleted` TINYINT(1),
       `updatedAt` DATETIME,
       `createdAt` DATETIME,
-      `version` INT(11),
       `source` VARCHAR(50),
       `sentCount` INT(11),
       `__v` INT(11),
