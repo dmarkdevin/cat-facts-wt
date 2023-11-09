@@ -13,8 +13,8 @@ CatFacts 101 is an application that consumes the Cat Facts API to fetch interest
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/dmarkdevin/catfacts.git
-   cd catfacts/
+   git clone https://github.com/dmarkdevin/cat-facts-wt
+   cd cat-facts-wt/
    ```
 
 2. **Run Composer Install:**
